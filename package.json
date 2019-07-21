@@ -1,0 +1,33 @@
+{
+  "name": "flooring",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "./node_modules/fastify-cli/start.js -P --ignore-watch='node_modules .git logs/error.log' app.js",
+    "start-dev": "./node_modules/fastify-cli/start.js -w -l info -P --ignore-watch='node_modules .git logs/error.log' app.js",
+    "db-migrate": "./node_modules/db-migrate/bin/db-migrate",
+    "db-migrate-up": "./node_modules/db-migrate/bin/db-migrate up",
+    "db-migrate-up-dry": "./node_modules/db-migrate/bin/db-migrate up --dry-run",
+    "db-migrate-down": "./node_modules/db-migrate/bin/db-migrate down",
+    "db-migrate-down-dry": "./node_modules/db-migrate/bin/db-migrate down --dry-run",
+    "db-migrate-check": "./node_modules/db-migrate/bin/db-migrate check",
+    "db-migrate-reset": "./node_modules/db-migrate/bin/db-migrate reset",
+    "db-migrate-sync": "./node_modules/db-migrate/bin/db-migrate sync",
+    "major-upgrade-packages": "npm install fastify-sensible@latest db-migrate@latest db-migrate-pg@latest dotenv@latest fastify@latest fastify-cli@latest fastify-plugin@latest fastify-static@latest fastify-swagger@latest massive@latest --save"
+  },
+  "author": "",
+  "dependencies": {
+    "db-migrate": "^0.11.6",
+    "db-migrate-pg": "^1.0.0",
+    "dotenv": "^8.0.0",
+    "fastify": "^2.6.0",
+    "fastify-cli": "^1.1.0",
+    "fastify-plugin": "^1.6.0",
+    "fastify-sensible": "^2.1.1",
+    "fastify-static": "^2.5.0",
+    "fastify-swagger": "^2.4.0",
+    "massive": "^5.11.2"
+  }
+}
