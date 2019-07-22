@@ -1,7 +1,7 @@
 // Get all categories
 module.exports.getCategories = async (fastify, request, reply) => {
     try {
-        const result = await fastify.massive.query(
+        const result = await fastify.pg.query(
             `SELECT C.name, array_agg(PC.product_id) product_ids
             FROM public.product_category PC
             RIGHT JOIN public.category C ON C.id = PC.category_id
@@ -11,7 +11,7 @@ module.exports.getCategories = async (fastify, request, reply) => {
 
         let json = { "categories": [] };
 
-        result.forEach(function (item) {
+        result.rows.forEach(function (item) {
             let category = {};
             category[item['name']] = (item['product_ids'][0] != null) ? [item['product_ids']] : [];
             json.categories.push(category);
@@ -27,14 +27,13 @@ module.exports.getCategories = async (fastify, request, reply) => {
 // Return products for single category
 module.exports.getSingleCategory = async (fastify, request, reply) => {
     try {
-        const id = request.params.id;
-        const result = await fastify.massive.category.findOne(id);
+        const result = await fastify.pg.query('SELECT * FROM category WHERE id=$1', [request.params.id]);
 
-        if (result === null) {
+        if (result.rows.length < 1) {
             throw fastify.httpErrors.notFound('Category Not Found');
         }
 
-        return result;
+        return result.rows;
     }
     catch (err) {
         throw fastify.httpErrors.internalServerError(err);

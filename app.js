@@ -11,25 +11,18 @@ fastify = require('fastify')({
     }*/
 });
 
-const massive = require('./fastify-massive');
-
 module.exports = function (fastify, opts, next) {
     // Register sensible defaults
     fastify.register(require('fastify-sensible'));
 
-    // Register Massive
-    fastify.register(massive, {
-        massive: {
-            host: process.env.DATABASE_HOST,
-            port: process.env.DATABASE_PORT,
-            database: process.env.DATABASE_NAME,
-            user: process.env.DATABASE_USER,
-            password: process.env.DATABASE_PASSWORD,
-            ssl: (process.env.DATABASE_USESSL.toLowerCase() == 'true'),
-            poolSize: process.env.DATABASE_POOLSIZE
-        }/*,
-        async onLoad(db) {
-        }*/
+    // Register PostgreSQL
+    fastify.register(require('fastify-postgres'), {
+        host: process.env.DATABASE_HOST,
+        port: process.env.DATABASE_PORT,
+        database: process.env.DATABASE_NAME,
+        user: process.env.DATABASE_USER,
+        password: process.env.DATABASE_PASSWORD,
+        ssl: (process.env.DATABASE_USESSL.toLowerCase() == 'true')
     });
 
     // Register Swagger

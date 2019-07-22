@@ -15,7 +15,7 @@
     "db-migrate-check": "./node_modules/db-migrate/bin/db-migrate check",
     "db-migrate-reset": "./node_modules/db-migrate/bin/db-migrate reset",
     "db-migrate-sync": "./node_modules/db-migrate/bin/db-migrate sync",
-    "major-upgrade-packages": "npm install fastify-sensible@latest db-migrate@latest db-migrate-pg@latest dotenv@latest fastify@latest fastify-cli@latest fastify-plugin@latest fastify-static@latest fastify-swagger@latest massive@latest --save"
+    "major-upgrade-packages": "npm install fastify-sensible@latest db-migrate@latest db-migrate-pg@latest dotenv@latest fastify@latest fastify-cli@latest fastify-plugin@latest fastify-static@latest fastify-swagger@latest pg@latest fastify-postgres@latest --save"
   },
   "author": "",
   "dependencies": {
@@ -25,9 +25,11 @@
     "fastify": "^2.6.0",
     "fastify-cli": "^1.1.0",
     "fastify-plugin": "^1.6.0",
+    "fastify-postgres": "^2.0.0",
     "fastify-sensible": "^2.1.1",
     "fastify-static": "^2.5.0",
     "fastify-swagger": "^2.4.0",
-    "massive": "^5.11.2"
+    "massive": "^5.11.2",
+    "pg": "^7.11.0"
   }
 }

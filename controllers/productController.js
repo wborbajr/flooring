@@ -6,14 +6,15 @@ require('dotenv').config();
 // Get all products
 module.exports.getProducts = async (fastify, request, reply) => {
     try {
-        const result = await fastify.massive.product.find();
+        const result = await fastify.pg.query('SELECT * FROM product');
 
         let json = {
             "base_url": 'http://' + process.env.HOST_AND_PORT + '/',
             "products": []
         };
-
-        json.products = result;
+        
+        if (result.rows.length > 0)
+            json.products = result.rows;
 
         return json;
     }
@@ -25,14 +26,13 @@ module.exports.getProducts = async (fastify, request, reply) => {
 // Get single product by ID
 module.exports.getSingleProduct = async (fastify, request, reply) => {
     try {
-        const id = request.params.id;
-        const result = await fastify.massive.product.findOne(id);
+        const result = await fastify.pg.query('SELECT * FROM product WHERE id=$1', [request.params.id]);
 
-        if (result === null) {
+        if (result.rows.length < 1) {
             throw fastify.httpErrors.notFound('Product Not Found');
         }
 
-        return result;
+        return result.rows;
     }
     catch (err) {
         throw fastify.httpErrors.internalServerError(err);
