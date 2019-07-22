@@ -57,29 +57,12 @@ module.exports.deleteProduct = async (fastify, request, reply) => {
 };*/
 
 // PRODUCT TEXTURE CONTROLLERS
-// https://github.com/fastify/fastify-static
-// FIX ERROR HANDLING USING https://www.fastify.io/docs/latest/Server/#setnotfoundhandler 
-module.exports.getAlbedoTexture = async (fastify, request, reply) => {
-    try {
-        reply.sendFile('textures/' + request.params.id + '/albedo.png');
-    }
-    catch (err) {
-        throw fastify.httpErrors.notFound('Texture Not Found');
-    }
+module.exports.getAlbedoTexture = function (fastify, request, reply) {
+    reply.sendFile('textures/' + request.params.id + '/albedo.png');
 };
-module.exports.getNormalTexture = async (fastify, request, reply) => {
-    try {
-        return reply.sendFile('textures/' + request.params.id + '/normal.png');
-    }
-    catch (err) {
-        throw fastify.httpErrors.notFound('Texture Not Found');
-    }
+module.exports.getNormalTexture = function (fastify, request, reply) {
+    reply.sendFile('textures/' + request.params.id + '/normal.png');
 };
-module.exports.getAoTexture = async (fastify, request, reply) => {
-    try {
-        reply.sendFile('textures/' + request.params.id + '/ao.png');
-    }
-    catch (err) {
-        throw fastify.httpErrors.notFound('Texture Not Found');
-    }
+module.exports.getAoTexture = function (fastify, request, reply) {
+    reply.sendFile('textures/' + request.params.id + '/ao.png');
 };

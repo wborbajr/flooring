@@ -109,8 +109,8 @@ async function routes (fastify, options) {
         }
       }
     }
-  }, async (request, reply) => {
-    return productController.getAlbedoTexture(fastify, request, reply);
+  }, function (request, reply) {
+    productController.getAlbedoTexture(fastify, request, reply);
   });
 
   fastify.get('/products/:id/normal', {
@@ -126,8 +126,8 @@ async function routes (fastify, options) {
         }
       }
     }
-  }, async (request, reply) => {
-    return productController.getNormalTexture(fastify, request, reply);
+  }, function (request, reply) {
+    productController.getNormalTexture(fastify, request, reply);
   });
 
   fastify.get('/products/:id/ao', {
@@ -143,8 +143,8 @@ async function routes (fastify, options) {
         }
       }
     }
-  }, async (request, reply) => {
-    return productController.getAoTexture(fastify, request, reply);
+  }, function (request, reply) {
+    productController.getAoTexture(fastify, request, reply);
   });
 }
 

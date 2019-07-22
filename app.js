@@ -48,7 +48,8 @@ module.exports = function (fastify, opts, next) {
 
     // Register Static
     fastify.register(require('fastify-static'), {
-        root: path.join(__dirname, 'public')
+        root: path.join(__dirname, 'public'),
+        serve: false
     });
 
     // Register routes
