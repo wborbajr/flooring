@@ -1,9 +1,7 @@
-require('dotenv').config();
-
 const path = require('path');
 const fs = require('fs');
 
-fastify = require('fastify')({
+const fastify = require('fastify')({
     logger: true,
     /*https: {
         key: fs.readFileSync(path.join(__dirname, '/certificate/', 'key.pem')),
@@ -12,6 +10,50 @@ fastify = require('fastify')({
 });
 
 module.exports = function (fastify, opts, next) {
+    // Register env variables
+    const envOptions = {
+        schema: {
+            type: 'object',
+            required: ['FASTIFY_ADDRESS', 'FASTIFY_PORT', 'URI_SCHEMES', 'HOST_AND_PORT', 'DATABASE_PORT', 'DATABASE_NAME', 'DATABASE_USER', 'DATABASE_PASSWORD', 'DATABASE_USESSL'],
+            properties: {
+                FASTIFY_ADDRESS: {
+                    type: 'string',
+                    default: '0.0.0.0'
+                },
+                FASTIFY_PORT: {
+                    type: 'integer',
+                    default: 3000
+                },
+                URI_SCHEMES: {
+                    type: 'string',
+                    default: 'http,https'
+                },
+                HOST_AND_PORT: {
+                    type: 'string',
+                    default: '127.0.0.1:3000'
+                },
+                DATABASE_PORT: {
+                    type: 'integer',
+                    default: 5432
+                },
+                DATABASE_NAME: {
+                    type: 'string'
+                },
+                DATABASE_USER: {
+                    type: 'string'
+                },
+                DATABASE_PASSWORD: {
+                    type: 'string'
+                },
+                DATABASE_USESSL: {
+                    type: 'boolean',
+                    default: true
+                }
+            }
+        }
+    };
+    fastify.register(require('fastify-env'), envOptions).ready((err) => { if (err) console.error(err) });
+
     // Register sensible defaults
     fastify.register(require('fastify-sensible'));
 
@@ -40,7 +82,7 @@ module.exports = function (fastify, opts, next) {
                 description: 'Find more info here'
             },
             host: process.env.HOST_AND_PORT,
-            schemes: ['http'/*, 'https'*/],
+            schemes: process.env.URI_SCHEMES.split(','),
             consumes: ['application/json'],
             produces: ['application/json']
         }

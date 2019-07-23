@@ -1,6 +1,3 @@
-// MAYBE PUT dotenv IN OWN FASTIFY PLUGIN AND REGISTER IN app.js!!!!!!!!
-require('dotenv').config();
-
 // PRODUCT LIST CONTROLLERS
 
 // Get all products
@@ -9,7 +6,7 @@ module.exports.getProducts = async (fastify, request, reply) => {
         const result = await fastify.pg.query('SELECT * FROM product');
 
         let json = {
-            "base_url": 'http://' + process.env.HOST_AND_PORT + '/',
+            "base_url": request.hostname + '/',
             "products": []
         };
         
