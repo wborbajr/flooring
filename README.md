@@ -1,6 +1,6 @@
 # Flooring
 
-A basic Fastify REST API example
+A basic Fastify REST API example, including database migrations for a PostgreSQL database and configuration through a .env/environment variables file.
 
 TODO:
 * Implement JWT auth
