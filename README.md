@@ -1,5 +1,7 @@
 # Flooring
 
+A basic Fastify REST API example
+
 TODO:
 * Implement JWT auth
 * Fix error-handling using <https://www.fastify.io/docs/latest/Server/#setnotfoundhandler> (productController should then use the notFound text when textures cannot be loaded)
